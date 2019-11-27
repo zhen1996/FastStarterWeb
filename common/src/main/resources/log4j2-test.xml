@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<configuration status="info" monitorInterval="500">
+    <!--先定义所有的appender-->
+    <appenders>
+        <!--这个输出控制台的配置-->
+        <Console name="console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+            <!--这个都知道是输出日志的格式-->
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </Console>
+
+        <!-- debugLog日志 -->
+        <RollingRandomAccessFile name="debuglog" fileName="log/debug.log"
+                                 filePattern="log/debug.%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} - %logger [%thread] %-5level %c %M:%L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <!-- infoLog日志 -->
+        <RollingRandomAccessFile name="infolog" fileName="log/info.log"
+                                 filePattern="log/info.%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} - %logger [%thread] %-5level %c %M:%L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <!-- warnLog日志 -->
+        <RollingRandomAccessFile name="warnlog" fileName="log/warn.log"
+                                 filePattern="log/warn.%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} - %logger [%thread] %-5level %c %M:%L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <!-- errorLog日志 -->
+        <RollingRandomAccessFile name="errorlog" fileName="log/error.log"
+                                 filePattern="log/error.%d{yyyy-MM-dd}.log">
+            <Filters>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} - %logger [%thread] %-5level %c %M:%L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <!-- stdout日志 -->
+        <RollingRandomAccessFile name="stdout" fileName="log/stdout"
+                                 filePattern="log/stdout.%d{yyyy-MM-dd}">
+            <Filters>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} - %logger [%thread] %-5level %c %M:%L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+        <!-- stderr日志 -->
+        <RollingRandomAccessFile name="stderr" fileName="log/stderr"
+                                 filePattern="log/stderr.%d{yyyy-MM-dd}">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout
+                    pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} - %logger [%thread] %-5level %c %M:%L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingRandomAccessFile>
+
+    </appenders>
+
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+        <!-- 过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.springframework" level="INFO"></logger>
+        <logger name="org.mybatis" level="INFO"></logger>
+        <logger name="springfox.documentation" level="INFO"></logger>
+        <logger name="org.hibernate" level="INFO"></logger>
+        <logger name="org.apache" level="INFO"></logger>
+        <logger name="com.alibaba" level="INFO"></logger>
+
+        <!--建立一个默认的root的logger-->
+        <root level="INFO">
+            <appender-ref ref="stdout"/>
+            <appender-ref ref="stderr"/>
+            <appender-ref ref="console"/>
+        </root>
+    </loggers>
+</configuration>
