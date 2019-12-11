@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <properties resource="generator.properties"/>
+  <context id="MySqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+    <property name="javaFileEncoding" value="UTF-8"/>
+    <!-- 使用叉叉哥写的分页插件(https://github.com/wucao/mybatis-generator-limit-plugin) -->
+    <plugin type="com.xxg.mybatis.plugins.MySQLLimitPlugin"/>
+    <!-- 自动为entity生成swagger2文档-->
+<!--    <plugin type="DataModelToSwaggerPlugin">-->
+<!--      <property name="apiModelAnnotationPackage" value="io.swagger.annotations.ApiModel"/>-->
+<!--      <property name="apiModelPropertyAnnotationPackage"-->
+<!--        value="io.swagger.annotations.ApiModelProperty"/>-->
+<!--    </plugin>-->
+    <!-- 为模型生成序列化方法-->
+    <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+    <!-- 为生成的Java模型创建一个toString方法 -->
+    <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+    <!--可以自定义生成model的代码注释-->
+    <commentGenerator>
+      <!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
+      <!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
+      <property name="suppressDate" value="true"/>
+      <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+      <property name="suppressAllComments" value="false"/>
+      <property name="javaFileEncoding" value="UTF-8"/>
+    </commentGenerator>
+    <!--配置数据库连接-->
+    <jdbcConnection driverClass="${jdbc.driverClass}"
+      connectionURL="${jdbc.connectionURL}"
+      userId="${jdbc.userId}"
+      password="${jdbc.password}">
+      <!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题-->
+      <property name="nullCatalogMeansCurrent" value="true" />
+    </jdbcConnection>
+    <!--指定生成model的路径-->
+    <javaModelGenerator targetPackage="com.summer.faststarter.datasource.mbg.model" targetProject="src/main/java"/>
+    <!--指定生成mapper.xml的路径-->
+    <sqlMapGenerator targetPackage="generate" targetProject="src/main/resources/mybatis"/>
+    <!--指定生成mapper接口的的路径-->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.summer.faststarter.datasource.mbg.dao"
+      targetProject="src/main/java"/>
+    <!--生成全部表tableName设为%-->
+    <table tableName="TB_TEST">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+  </context>
+</generatorConfiguration>

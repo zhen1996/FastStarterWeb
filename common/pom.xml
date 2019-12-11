@@ -10,7 +10,6 @@
     </parent>
 
     <artifactId>common</artifactId>
-
     <name>common</name>
     <description>common of web project scaffold</description>
 
