@@ -41,6 +41,7 @@
             <artifactId>common</artifactId>
             <version>1.0.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.summer.fastStarter</groupId>
             <artifactId>datasource</artifactId>

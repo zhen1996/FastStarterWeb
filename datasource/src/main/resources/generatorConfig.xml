@@ -47,14 +47,18 @@
       <property name="nullCatalogMeansCurrent" value="true" />
     </jdbcConnection>
     <!--指定生成model的路径-->
-    <javaModelGenerator targetPackage="com.summer.faststarter.datasource.mbg.model" targetProject="src/main/java"/>
+    <javaModelGenerator targetPackage="com.summer.faststarter.datasource.mybatis.generate.model" targetProject="src/main/java"/>
     <!--指定生成mapper.xml的路径-->
     <sqlMapGenerator targetPackage="generate" targetProject="src/main/resources/mybatis"/>
     <!--指定生成mapper接口的的路径-->
-    <javaClientGenerator type="XMLMAPPER" targetPackage="com.summer.faststarter.datasource.mbg.dao"
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.summer.faststarter.datasource.mybatis.generate.dao"
       targetProject="src/main/java"/>
+
     <!--生成全部表tableName设为%-->
     <table tableName="TB_TEST" domainObjectName="Test" mapperName="TestDao">
+      <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+    </table>
+    <table tableName="TB_USER" domainObjectName="User" mapperName="UserDao">
       <generatedKey column="id" sqlStatement="MySql" identity="true"/>
     </table>
   </context>
