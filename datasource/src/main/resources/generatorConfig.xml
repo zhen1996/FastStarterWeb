@@ -11,12 +11,20 @@
     <property name="javaFileEncoding" value="UTF-8"/>
     <!-- 使用叉叉哥写的分页插件(https://github.com/wucao/mybatis-generator-limit-plugin) -->
     <plugin type="com.xxg.mybatis.plugins.MySQLLimitPlugin"/>
+    <!-- 文件重命名 -->
+    <plugin type="com.github.dcendents.mybatis.generator.plugin.rename.RenameExampleClassAndMethodsPlugin">
+      <property name="classMethodSearchString" value="Example"/>
+      <property name="classMethodReplaceString" value="Criteria"/>
+      <property name="parameterSearchString" value="example"/>
+      <property name="parameterReplaceString" value="criteria"/>
+    </plugin>
     <!-- 自动为entity生成swagger2文档-->
-<!--    <plugin type="DataModelToSwaggerPlugin">-->
-<!--      <property name="apiModelAnnotationPackage" value="io.swagger.annotations.ApiModel"/>-->
-<!--      <property name="apiModelPropertyAnnotationPackage"-->
-<!--        value="io.swagger.annotations.ApiModelProperty"/>-->
-<!--    </plugin>-->
+    <plugin type="mybatis.generator.plugins.GeneratorSwagger2Doc">
+      <property name="apiModelAnnotationPackage" value="io.swagger.annotations.ApiModel" />
+      <property name="apiModelPropertyAnnotationPackage" value="io.swagger.annotations.ApiModelProperty" />
+    </plugin>
+    <!-- 扩展entity的set方法-->
+    <plugin type="mybatis.generator.plugins.ExtendEntitySetter" />
     <!-- 为模型生成序列化方法-->
     <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
     <!-- 为生成的Java模型创建一个toString方法 -->
@@ -46,7 +54,7 @@
     <javaClientGenerator type="XMLMAPPER" targetPackage="com.summer.faststarter.datasource.mbg.dao"
       targetProject="src/main/java"/>
     <!--生成全部表tableName设为%-->
-    <table tableName="TB_TEST">
+    <table tableName="TB_TEST" domainObjectName="Test" mapperName="TestDao">
       <generatedKey column="id" sqlStatement="MySql" identity="true"/>
     </table>
   </context>
