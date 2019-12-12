@@ -15,9 +15,8 @@
         <module>api</module>
         <module>common</module>
         <module>datasource</module>
+        <module>cache</module>
     </modules>
-
-
 
     <groupId>com.summer.fastStarter</groupId>
     <artifactId>main</artifactId>
