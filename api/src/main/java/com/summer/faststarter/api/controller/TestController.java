@@ -1,16 +1,16 @@
 package com.summer.faststarter.api.controller;
 
+import com.summer.faststarter.enums.ResultCodeEnum;
+import com.summer.faststarter.model.TestModel;
+import com.summer.faststarter.model.response.ResultData;
 import com.summer.faststarter.mybatis.extend.UserExtDao;
 import com.summer.faststarter.mybatis.generate.dao.TestDao;
 import com.summer.faststarter.mybatis.generate.model.Test;
 import com.summer.faststarter.redis.RedisUtil;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.*;
@@ -67,4 +67,20 @@ public class TestController {
     return test;
   }
 
+  @ApiImplicitParams(value = {})
+  @ApiOperation("测试5-return")
+  @GetMapping("/test5")
+  public ResultData<TestModel> test5() {
+    TestModel testModel = new TestModel();
+    testModel.setAge(18);
+    testModel.setName("test");
+    return new ResultData<>(ResultCodeEnum.SUCCESS, testModel);
+  }
+
+  @ApiImplicitParams(value = {})
+  @ApiOperation("测试6-exception")
+  @GetMapping("/test6")
+  public void test6() throws Exception {
+    throw new Exception("测试异常");
+  }
 }
