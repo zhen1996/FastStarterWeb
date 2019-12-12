@@ -4,6 +4,7 @@ import com.summer.faststarter.datasource.mybatis.extend.UserExtDao;
 import com.summer.faststarter.datasource.mybatis.generate.dao.TestDao;
 import com.summer.faststarter.datasource.mybatis.generate.model.Test;
 import javax.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import io.swagger.annotations.*;
  */
 @Api(value = "测试控制器", description = "测试控制器")
 @RestController
+@Slf4j
 @RequestMapping("/api")
 public class TestController {
 
@@ -29,6 +31,7 @@ public class TestController {
   @GetMapping("/test1")
   public Object test() {
     Test test = testDao.selectByPrimaryKey(1);
+    log.info("调用接口test1");
     return test.toString();
   }
 
