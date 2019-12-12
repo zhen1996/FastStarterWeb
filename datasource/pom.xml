@@ -14,8 +14,6 @@
     <name>datasource</name>
     <description>datasource of web project scaffold</description>
 
-
-
     <dependencies>
 <!--        <dependency>-->
 <!--            <groupId>com.summer.fastStarter</groupId>-->

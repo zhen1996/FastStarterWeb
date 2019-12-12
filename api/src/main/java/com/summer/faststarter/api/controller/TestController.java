@@ -1,8 +1,8 @@
 package com.summer.faststarter.api.controller;
 
-import com.summer.faststarter.datasource.mybatis.extend.UserExtDao;
-import com.summer.faststarter.datasource.mybatis.generate.dao.TestDao;
-import com.summer.faststarter.datasource.mybatis.generate.model.Test;
+import com.summer.faststarter.mybatis.extend.UserExtDao;
+import com.summer.faststarter.mybatis.generate.dao.TestDao;
+import com.summer.faststarter.mybatis.generate.model.Test;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
