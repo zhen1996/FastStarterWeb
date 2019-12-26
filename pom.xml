@@ -96,6 +96,13 @@
         </dependency>
     </dependencies>
 
+    <!-- 该配置下的依赖不会被子项目依赖，除非子项目声明了GAV。若无版本，则会使用配置中的同名依赖 -->
+    <dependencyManagement>
+        <dependencies>
+        </dependencies>
+
+    </dependencyManagement>
+
     <build>
         <plugins>
             <!-- 注意: 因为我们不需要父工程是一个可运行的项目，所以修改原来的打包方式为maven打包方式 -->
@@ -104,11 +111,34 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
+                    <encoding>UTF8</encoding>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <!--打包时跳过 test 阶段 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <!-- 项目开发者列表 -->
+    <developers>
+        <developer>
+            <name> liuke </name>
+            <email> null </email>
+            <url>null</url>
+        </developer>
+        <developer>
+            <name> gongzhen </name>
+            <email> null </email>
+            <url>null</url>
+        </developer>
+    </developers>
 
 </project>

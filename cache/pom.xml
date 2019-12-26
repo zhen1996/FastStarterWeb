@@ -25,9 +25,22 @@
 
   <build>
     <plugins>
+      <!-- module打包时，若不加入此插件内容，则会打包成一个fat jar，即可以直接运行的jar，在这里我们只需要打包成普通的jar包即可-->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <classifier>exec</classifier>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- 指定源码编译的编码格式及jdk版本 -->
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <encoding>UTF8</encoding>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
       </plugin>
     </plugins>
   </build>
