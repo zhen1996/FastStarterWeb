@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Enumeration;
+import java.util.Properties;
+
 import io.swagger.annotations.*;
 
 
@@ -83,4 +86,16 @@ public class TestController {
   public void test6() throws Exception {
     throw new Exception("测试异常");
   }
+
+  @GetMapping("/test7")
+  public Object test7(){
+    Properties properties = System.getProperties();
+    Enumeration<?> enumeration = properties.propertyNames();
+    while(enumeration.hasMoreElements()){
+      log.info("properties is:{}",enumeration.nextElement().toString());
+    }
+    log.info("properties is{}.",properties.propertyNames().toString());
+    return null;
+  }
+
 }
